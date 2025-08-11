@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEasy - Your One-Stop Online Store</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #e74c3c;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.2rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            padding-left: 40px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sort-options select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .product-category {
+            display: inline-block;
+            background-color: #f1f1f1;
+            color: #7f8c8d;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 0.5rem 0;
+        }
+
+        .product-rating {
+            color: #f39c12;
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #27ae60;
+        }
+
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            margin-right: 1rem;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 0.2rem;
+        }
+
+        .remove-item {
+            color: #e74c3c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+            padding: 0.5rem;
+        }
+
+        .cart-summary {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-top: 1px solid #ddd;
+            padding-top: 0.8rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Checkout Form */
+        .checkout-form {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .payment-methods {
+            margin-top: 1rem;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .payment-method input {
+            width: auto;
+            margin-right: 0.8rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn-back {
+            background-color: #95a5a6;
+        }
+
+        .btn-back:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #e74c3c;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #e74c3c;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #ecf0f1;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #e74c3c;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            .search-filter {
+                flex-direction: column;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transform: translateX(200%);
+            transition: transform 0.3s;
+            z-index: 1100;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Shop<span>Easy</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li>
+                        <a href="#" class="cart-icon" id="cart-icon">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Welcome to ShopEasy</h1>
+            <p>Discover amazing products at unbeatable prices</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Search and Filter -->
+        <div class="search-filter">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search products...">
+            </div>
+            <div class="sort-options">
+                <label for="sort-select">Sort by:</label>
+                <select id="sort-select">
+                    <option value="default">Default</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name-asc">Name: A-Z</option>
+                    <option value="name-desc">Name: Z-A</option>
+                    <option value="rating">Rating</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Your Shopping Cart</h2>
+                <button class="close-btn" id="close-cart">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be dynamically inserted here -->
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span id="cart-shipping">$5.00</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span id="cart-total">$5.00</span>
+                    </div>
+                    <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="close-btn" id="close-checkout">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="checkout-form" class="checkout-form">
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Shipping Address</label>
+                        <textarea id="address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="payment-methods">
+                            <div class="payment-method">
+                                <input type="radio" id="credit-card" name="payment" value="credit-card" checked>
+                                <label for="credit-card">Credit Card</label>
+                            </div>
+                            <div class="payment-method">
+                                <input type="radio" id="paypal" name="payment" value="paypal">
+                                <label for="paypal">PayPal</label>
+                            </div>
+                            <div class="payment-method">
+                                <input type="radio" id="cod" name="payment" value="cod">
+                                <label for="cod">Cash on Delivery</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-back" id="back-to-cart">Back to Cart</button>
+                        <button type="submit" class="btn btn-secondary">Place Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ShopEasy</h3>
+                    <p>Your one-stop online store for all your needs. Quality products at affordable prices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main St, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-envelope"></i> info@shopeasy.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 ShopEasy. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Product Data (70 products)
+        const products = [
+            {
+                id: 1,
+                title: "Wireless Bluetooth Headphones",
+                category: "Electronics",
+                price: 89.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "High-quality wireless headphones with noise cancellation."
+            },
+            {
+                id: 2,
+                title: "Smartphone X Pro",
+                category: "Electronics",
+                price: 799.99,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Latest smartphone with advanced camera features."
+            },
+            {
+                id: 3,
+                title: "Laptop Ultra Slim",
+                category: "Electronics",
+                price: 1099.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Lightweight laptop with powerful performance."
+            },
+            {
+                id: 4,
+                title: "Smart Watch Series 5",
+                category: "Electronics",
+                price: 249.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Track your fitness and stay connected."
+            },
+            {
+                id: 5,
+                title: "Wireless Charging Pad",
+                category: "Electronics",
+                price: 29.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Fast wireless charging for your devices."
+            },
+            {
+                id: 6,
+                title: "4K Ultra HD TV",
+                category: "Electronics",
+                price: 899.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1467296581482-7dd0b4a6a9e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Immersive viewing experience with stunning clarity."
+            },
+            {
+                id: 7,
+                title: "Noise Cancelling Earbuds",
+                category: "Electronics",
+                price: 149.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Compact earbuds with active noise cancellation."
+            },
+            {
+                id: 8,
+                title: "Gaming Console",
+                category: "Electronics",
+                price: 499.99,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Next-gen gaming experience with ultra-fast loading."
+            },
+            {
+                id: 9,
+                title: "Portable Bluetooth Speaker",
+                category: "Electronics",
+                price: 79.99,
+                rating: 4.1,
+                image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Take your music anywhere with powerful sound."
+            },
+            {
+                id: 10,
+                title: "Digital Camera",
+                category: "Electronics",
+                price: 449.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Capture stunning photos with professional quality."
+            },
+            {
+                id: 11,
+                title: "Men's Running Shoes",
+                category: "Fashion",
+                price: 79.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Comfortable and durable running shoes."
+            },
+            {
+                id: 12,
+                title: "Women's Summer Dress",
+                category: "Fashion",
+                price: 49.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Lightweight and stylish summer dress."
+            },
+            {
+                id: 13,
+                title: "Leather Wallet",
+                category: "Fashion",
+                price: 39.99,
+                rating: 4.0,
+                image: "https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Genuine leather wallet with multiple compartments."
+            },
+            {
+                id: 14,
+                title: "Designer Sunglasses",
+                category: "Fashion",
+                price: 129.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "UV protection with stylish frame designs."
+            },
+            {
+                id: 15,
+                title: "Casual Backpack",
+                category: "Fashion",
+                price: 59.99,
+                rating: 4.1,
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Spacious backpack for everyday use."
+            },
+            {
+                id: 16,
+                title: "Men's Watch",
+                category: "Fashion",
+                price: 199.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Elegant timepiece with stainless steel band."
+            },
+            {
+                id: 17,
+                title: "Women's Handbag",
+                category: "Fashion",
+                price: 89.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Trendy handbag with ample storage space."
+            },
+            {
+                id: 18,
+                title: "Denim Jacket",
+                category: "Fashion",
+                price: 69.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Classic denim jacket for all seasons."
+            },
+            {
+                id: 19,
+                title: "Running Shorts",
+                category: "Fashion",
+                price: 34.99,
+                rating: 4.0,
+                image: "https://images.unsplash.com/photo-1591046664047-777a9753adf5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Lightweight and breathable running shorts."
+            },
+            {
+                id: 20,
+                title: "Formal Dress Shirt",
+                category: "Fashion",
+                price: 49.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Classic fit dress shirt for formal occasions."
+            },
+            {
+                id: 21,
+                title: "Coffee Maker",
+                category: "Home",
+                price: 129.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1556911468-8c0a2a0e0f5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Programmable coffee maker with thermal carafe."
+            },
+            {
+                id: 22,
+                title: "Air Fryer",
+                category: "Home",
+                price: 99.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1615873968403-89e068629265?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Healthy cooking with little to no oil."
+            },
+            {
+                id: 23,
+                title: "Blender",
+                category: "Home",
+                price: 79.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Powerful blender for smoothies and food prep."
+            },
+            {
+                id: 24,
+                title: "Robot Vacuum",
+                category: "Home",
+                price: 299.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1585128790757-2a19bcbe82c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Smart vacuum that cleans automatically."
+            },
+            {
+                id: 25,
+                title: "Smart Thermostat",
+                category: "Home",
+                price: 199.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Energy-saving thermostat with app control."
+            },
+            {
+                id: 26,
+                title: "Electric Kettle",
+                category: "Home",
+                price: 49.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1599391409949-0f9a279b26a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Fast boiling with automatic shut-off."
+            },
+            {
+                id: 27,
+                title: "Food Processor",
+                category: "Home",
+                price: 119.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1585238342024-78d87f441ee9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Multi-functional food preparation appliance."
+            },
+            {
+                id: 28,
+                title: "Stand Mixer",
+                category: "Home",
+                price: 249.99,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1575589903363-1a6d30703135?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Professional quality mixer for baking."
+            },
+            {
+                id: 29,
+                title: "Toaster Oven",
+                category: "Home",
+                price: 89.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1586201375761-83865001e1ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Versatile toaster oven with multiple functions."
+            },
+            {
+                id: 30,
+                title: "Slow Cooker",
+                category: "Home",
+                price: 59.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Set it and forget it meal preparation."
+            },
+            {
+                id: 31,
+                title: "Yoga Mat",
+                category: "Sports",
+                price: 29.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1576678927484-cc9079570c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Non-slip yoga mat for all types of exercises."
+            },
+            {
+                id: 32,
+                title: "Dumbbell Set",
+                category: "Sports",
+                price: 149.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Adjustable weight dumbbells for home workouts."
+            },
+            {
+                id: 33,
+                title: "Running Treadmill",
+                category: "Sports",
+                price: 899.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1571019614242-c955959a79b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Foldable treadmill with multiple workout programs."
+            },
+            {
+                id: 34,
+                title: "Bicycle",
+                category: "Sports",
+                price: 499.99,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Mountain bike with durable frame and gears."
+            },
+            {
+                id: 35,
+                title: "Basketball",
+                category: "Sports",
+                price: 24.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Official size and weight basketball."
+            },
+            {
+                id: 36,
+                title: "Camping Tent",
+                category: "Sports",
+                price: 199.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "4-person tent with waterproof rainfly."
+            },
+            {
+                id: 37,
+                title: "Fishing Rod",
+                category: "Sports",
+                price: 79.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1602231374648-1cf0e6a7ee0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Medium action spinning rod and reel combo."
+            },
+            {
+                id: 38,
+                title: "Golf Clubs Set",
+                category: "Sports",
+                price: 399.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Complete set for beginner to intermediate players."
+            },
+            {
+                id: 39,
+                title: "Jump Rope",
+                category: "Sports",
+                price: 14.99,
+                rating: 4.1,
+                image: "https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Adjustable speed rope for cardio workouts."
+            },
+            {
+                id: 40,
+                title: "Swimming Goggles",
+                category: "Sports",
+                price: 19.99,
+                rating: 4.0,
+                image: "https://images.unsplash.com/photo-1596541223131-9d3e05de7a1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Anti-fog goggles with UV protection."
+            },
+            {
+                id: 41,
+                title: "Fiction Novel",
+                category: "Books",
+                price: 14.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Bestselling fiction novel by acclaimed author."
+            },
+            {
+                id: 42,
+                title: "Cookbook",
+                category: "Books",
+                price: 24.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Collection of recipes from around the world."
+            },
+            {
+                id: 43,
+                title: "Self-Help Book",
+                category: "Books",
+                price: 18.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Guide to personal development and success."
+            },
+            {
+                id: 44,
+                title: "Children's Book",
+                category: "Books",
+                price: 12.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1592496431122-2349e0fbc666?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Colorful illustrated book for young readers."
+            },
+            {
+                id: 45,
+                title: "Biography",
+                category: "Books",
+                price: 19.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Inspiring life story of a famous personality."
+            },
+            {
+                id: 46,
+                title: "Science Book",
+                category: "Books",
+                price: 29.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Exploring the wonders of modern science."
+            },
+            {
+                id: 47,
+                title: "History Book",
+                category: "Books",
+                price: 22.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Comprehensive look at world history."
+            },
+            {
+                id: 48,
+                title: "Travel Guide",
+                category: "Books",
+                price: 16.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Essential guide for travelers to popular destinations."
+            },
+            {
+                id: 49,
+                title: "Poetry Collection",
+                category: "Books",
+                price: 15.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Beautiful collection of poems by renowned poet."
+            },
+            {
+                id: 50,
+                title: "Art Book",
+                category: "Books",
+                price: 34.99,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Showcase of masterpieces from art history."
+            },
+            {
+                id: 51,
+                title: "Action Figure",
+                category: "Toys",
+                price: 19.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1581093450021-4a7360e9aab5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Popular character action figure with accessories."
+            },
+            {
+                id: 52,
+                title: "Building Blocks",
+                category: "Toys",
+                price: 39.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Creative construction set for kids."
+            },
+            {
+                id: 53,
+                title: "Board Game",
+                category: "Toys",
+                price: 29.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1585504198199-20277593b94f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Family-friendly strategy board game."
+            },
+            {
+                id: 54,
+                title: "Doll House",
+                category: "Toys",
+                price: 59.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1593998069706-47c3c7e23a8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Multi-room doll house with furniture."
+            },
+            {
+                id: 55,
+                title: "Remote Control Car",
+                category: "Toys",
+                price: 49.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1587588354456-ae6d1a8a15e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "High-speed RC car with rechargeable battery."
+            },
+            {
+                id: 56,
+                title: "Puzzle Set",
+                category: "Toys",
+                price: 24.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "1000-piece jigsaw puzzle with vibrant image."
+            },
+            {
+                id: 57,
+                title: "Stuffed Animal",
+                category: "Toys",
+                price: 17.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1591769225440-811ad7d6eab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Soft plush toy of a popular animal character."
+            },
+            {
+                id: 58,
+                title: "Science Kit",
+                category: "Toys",
+                price: 34.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1562613521-87e9ca9df9f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Educational experiments for young scientists."
+            },
+            {
+                id: 59,
+                title: "Art Set",
+                category: "Toys",
+                price: 27.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1586634241553-bbeb0a8f53c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Complete set of art supplies for kids."
+            },
+            {
+                id: 60,
+                title: "Outdoor Playset",
+                category: "Toys",
+                price: 199.99,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Backyard playset with slide and swings."
+            },
+            {
+                id: 61,
+                title: "Scented Candle",
+                category: "Home Decor",
+                price: 19.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Aromatherapy candle with long burn time."
+            },
+            {
+                id: 62,
+                title: "Wall Art",
+                category: "Home Decor",
+                price: 89.99,
+                rating: 4.5,
+                image: "https://images.unsplash.com/photo-1578926375605-eaf7559b1458?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Canvas print of beautiful landscape artwork."
+            },
+            {
+                id: 63,
+                title: "Throw Pillow",
+                category: "Home Decor",
+                price: 24.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1579656592043-a8e5d819e738?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Decorative pillow with removable cover."
+            },
+            {
+                id: 64,
+                title: "Vase Set",
+                category: "Home Decor",
+                price: 39.99,
+                rating: 4.1,
+                image: "https://images.unsplash.com/photo-1581546104499-fc0e0a43a7d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Modern ceramic vase set of 3 sizes."
+            },
+            {
+                id: 65,
+                title: "Area Rug",
+                category: "Home Decor",
+                price: 129.99,
+                rating: 4.6,
+                image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Soft rug with geometric pattern."
+            },
+            {
+                id: 66,
+                title: "Table Lamp",
+                category: "Home Decor",
+                price: 49.99,
+                rating: 4.4,
+                image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Modern LED lamp with adjustable brightness."
+            },
+            {
+                id: 67,
+                title: "Mirror",
+                category: "Home Decor",
+                price: 79.99,
+                rating: 4.3,
+                image: "https://images.unsplash.com/photo-1558403194-611308249627?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Decorative wall mirror with wooden frame."
+            },
+            {
+                id: 68,
+                title: "Photo Frames",
+                category: "Home Decor",
+                price: 29.99,
+                rating: 4.0,
+                image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Set of 3 wooden photo frames."
+            },
+            {
+                id: 69,
+                title: "Bookshelf",
+                category: "Home Decor",
+                price: 149.99,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Modern bookshelf with 5 shelves."
+            },
+            {
+                id: 70,
+                title: "Decorative Bowl",
+                category: "Home Decor",
+                price: 34.99,
+                rating: 4.2,
+                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                description: "Handcrafted ceramic bowl for display."
+            }
+        ];
+
+        // Shopping Cart
+        let cart = [];
+
+        // DOM Elements
+        const productsGrid = document.getElementById('products-grid');
+        const cartIcon = document.getElementById('cart-icon');
+        const cartCount = document.getElementById('cart-count');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCart = document.getElementById('close-cart');
+        const cartItems = document.getElementById('cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckout = document.getElementById('close-checkout');
+        const backToCart = document.getElementById('back-to-cart');
+        const checkoutForm = document.getElementById('checkout-form');
+        const searchInput = document.getElementById('search-input');
+        const sortSelect = document.getElementById('sort-select');
+        const notification = document.getElementById('notification');
+
+        // Display Products
+        function displayProducts(productsToDisplay) {
+            productsGrid.innerHTML = '';
+            productsToDisplay.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.title}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        <span class="product-category">${product.category}</span>
+                        <div class="product-price">$${product.price.toFixed(2)}</div>
+                        <div class="product-rating">
+                            ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))} (${product.rating})
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary add-to-cart" data-id="${product.id}">Add to Cart</button>
+                            <button class="btn btn-secondary buy-now" data-id="${product.id}">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+
+            // Add event listeners to the new buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+
+            document.querySelectorAll('.buy-now').forEach(button => {
+                button.addEventListener('click', buyNow);
+            });
+        }
+
+        // Add to Cart
+        function addToCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${product.title} added to cart`);
+        }
+
+        // Buy Now
+        function buyNow(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            // Clear cart and add only this product
+            cart = [{
+                ...product,
+                quantity: 1
+            }];
+            
+            updateCart();
+            openCartModal();
+            showNotification(`Proceeding to checkout with ${product.title}`);
+        }
+
+        // Update Cart
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            // Update cart items display
+            cartItems.innerHTML = '';
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty</p>';
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.title}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4 class="cart-item-title">${item.title}</h4>
+                            <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                                <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">&times;</button>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', decreaseQuantity);
+            });
+            
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', increaseQuantity);
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', updateQuantity);
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', removeItem);
+            });
+            
+            // Update totals
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = subtotal > 0 ? 5 : 0;
+            const total = subtotal + shipping;
+            
+            cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Quantity Functions
+        function decreaseQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+            } else {
+                cart = cart.filter(item => item.id !== productId);
+            }
+            
+            updateCart();
+        }
+
+        function increaseQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            
+            item.quantity += 1;
+            updateCart();
+        }
+
+        function updateQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            const newQuantity = parseInt(e.target.value);
+            
+            if (newQuantity > 0) {
+                item.quantity = newQuantity;
+            } else {
+                cart = cart.filter(item => item.id !== productId);
+            }
+            
+            updateCart();
+        }
+
+        function removeItem(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Modal Functions
+        function openCartModal() {
+            cartModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCartModal() {
+            cartModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function openCheckoutModal() {
+            checkoutModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCheckoutModal() {
+            checkoutModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Search Functionality
+        function searchProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredProducts = products.filter(product => 
+                product.title.toLowerCase().includes(searchTerm) || 
+                product.category.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            displayProducts(filteredProducts);
+        }
+
+        // Sort Functionality
+        function sortProducts() {
+            const sortValue = sortSelect.value;
+            let sortedProducts = [...products];
+            
+            switch (sortValue) {
+                case 'price-low':
+                    sortedProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    sortedProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name-asc':
+                    sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
+                    break;
+                case 'name-desc':
+                    sortedProducts.sort((a, b) => b.title.localeCompare(a.title));
+                    break;
+                case 'rating':
+                    sortedProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                default:
+                    // Default sorting (by ID)
+                    sortedProducts.sort((a, b) => a.id - b.id);
+            }
+            
+            displayProducts(sortedProducts);
+        }
+
+        // Notification
+        function showNotification(message) {
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Checkout Form Submission
+        function handleCheckout(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('full-name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            
+            // In a real app, you would send this data to a server
+            console.log('Order placed:', {
+                customer: { name, email, phone, address },
+                paymentMethod,
+                items: cart,
+                total: cart.reduce((total, item) => total + (item.price * item.quantity), 0) + 5
+            });
+            
+            // Show success message
+            showNotification('Order placed successfully! Thank you for your purchase.');
+            
+            // Clear cart and close modals
+            cart = [];
+            updateCart();
+            closeCheckoutModal();
+        }
+
+        // Event Listeners
+        cartIcon.addEventListener('click', openCartModal);
+        closeCart.addEventListener('click', closeCartModal);
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length > 0) {
+                closeCartModal();
+                openCheckoutModal();
+            }
+        });
+        closeCheckout.addEventListener('click', closeCheckoutModal);
+        backToCart.addEventListener('click', () => {
+            closeCheckoutModal();
+            openCartModal();
+        });
+        checkoutForm.addEventListener('submit', handleCheckout);
+        searchInput.addEventListener('input', searchProducts);
+        sortSelect.addEventListener('change', sortProducts);
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                closeCartModal();
+            }
+            if (e.target === checkoutModal) {
+                closeCheckoutModal();
+            }
+        });
+
+        // Initialize
+        displayProducts(products);
+    </script>
+</body>
+</html>
